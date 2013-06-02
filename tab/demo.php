@@ -56,6 +56,16 @@ foreach ($destinations as $k => $v) {
 		$populardest = $k;
 		}
 }
+
+$intyear = intval(substr($mydate, 0, 4));
+$war = "Arrived before WWII";
+
+if ( $intyear >= 1939 && $intyear <= 1945) {
+ $war = "Arrived during WWII";
+} else if ($intyear > 1945) {
+ $war = "Arrived following WWII";
+}
+
 $result = mysql_query("SELECT* FROM mint WHERE `day` = '" . $mydate . "'");
 if (!$result) {
     die('Invalid query: ' . mysql_error());
@@ -110,7 +120,8 @@ else { $colc = "rgb(0,0,100)"; $image = "./weather-snow.png";
                 <b> Background about the Voyage </b>
 				<p> Min/Max Temperature on Thier Arrival: </p>
 				<p <?php echo  'style="color:' . $colc . ';"'; ?> >  <?php echo $mintemp . " / " . $maxtemp; ?>  </span> <img src="<?php echo $image; ?>"> </img> </p>
-            </div>
+				<p> Aditional Info: <?php echo $war; ?> </p> 
+			</div>
             <div id="view3" class="tabcontent">
                 <b> Statistics about the Voyage </b>
 				<p> Most Popular Destination: <?php echo $populardest; ?> </p>
